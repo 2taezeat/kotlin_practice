@@ -1,27 +1,26 @@
-interface Calculable {
-    fun calculate(x: Double, y: Double) : Double // 추상메서드
+interface Shape {
+    val area: Double
+    val perimeter : Double
 }
 
-class Add : Calculable{ // 인터페이스를 구현하는 Add 클래스
-    override fun calculate(x: Double, y: Double): Double {
-        return x + y
-    }
-}
-class Subtract : Calculable{
-    override fun calculate(x: Double, y: Double): Double {
-        return x - y
-    }
+class Rectangle(var width: Double, var height: Double) : Shape {
+    override val area: Double
+        get() = width * height
+    override val perimeter: Double // 둘레
+        get() = (width * 2) + (height * 2)
 }
 
-fun doCalculation(c: Calculable, x: Double, y: Double) = c.calculate(x, y)
+class Circle(var radius: Double) : Shape {
+    override val area: Double = Math.PI * (radius * radius)
+    override val perimeter: Double = Math.PI * (2 * radius)
+}
 
 fun main(args : Array<String>) {
-    var add = Add()
-    var sub = Subtract()
+    var r = Rectangle(10.0, 20.0)
+    println(r.area)
+    println(r.perimeter)
 
-    var res1 = doCalculation(add, 3.0, 4.0)
-    var res2 = doCalculation(sub, 10.0, 4.0)
-
-    println(res1)
-    println(res2)
+    var c = Circle(10.0)
+    println(c.area)
+    println(c.perimeter)
 }

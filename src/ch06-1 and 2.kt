@@ -4,11 +4,22 @@ class Point(var x:Double, var y:Double){
         return distance
     }
 
+    fun move(other:Point):Point {
+        return Point(this.x + other.x, this.y + other.y)
+    }
+
 }
 
 
 fun main(){
     val p1 = Point(0.0, 0.0)
     val p2 = Point(5.0, 5.0)
-    println(p1.calculateDistanceFrome(p2))
+    println(p1.calculateDistanceFrom(p2))
+
+    val p3 = Point(2.0, 1.0)
+    val p4 = Point(4.0, 7.0)
+    val p5 = p3.move(p4) // this => p3, other => p4
+    println("${p5.x},${p5.y}")
+
+
 }

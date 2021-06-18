@@ -1,25 +1,52 @@
-class Point(var x:Double, var y:Double){
-    fun calculateDistanceFrom(other: Point):Double {
-        val distance = Math.sqrt(Math.pow(this.x - other.x, 2.0) + Math.pow(this.y - other.y, 2.0))
-        return distance
+class Fraction(var n:Int, var d:Int){
+    fun toDouble() : Double {
+        return n.toDouble() / d
     }
 
-    fun move(other:Point):Point {
-        return Point(this.x + other.x, this.y + other.y)
+    override fun toString(): String {
+        return "${n}/${d} + 1"
     }
+
+    private fun lcm(a: Int, b: Int) : Int {
+        return (a * b) / gcd(a, b)
+    }
+
+    private fun gcd(a: Int, b: Int) : Int {
+        var gcd = 1
+        for(i in 2..kotlin.math.min(a, b)) {
+            if(a % i == 0 && b % i == 0) {
+                gcd = i
+            }
+        }
+        return gcd
+    }
+
+    fun add(f: Fraction) : Fraction {
+        if (this.d == f.d){
+            return Fraction(this.n + f.n, this.d)
+        }
+        else
+        {
+            var l = lcm(this.d,f.d)
+            return Fraction((this.n * (l / this.d)) + (f.n * (l / f.d)), l)
+        }
+    }
+
 
 }
 
 
 fun main(){
-    val p1 = Point(0.0, 0.0)
-    val p2 = Point(5.0, 5.0)
-    println(p1.calculateDistanceFrom(p2))
+    val f1 = Fraction(3,4)
+    val f2 = Fraction(1,10)
+    println(f1.toDouble())
 
-    val p3 = Point(2.0, 1.0)
-    val p4 = Point(4.0, 7.0)
-    val p5 = p3.move(p4) // this => p3, other => p4
-    println("${p5.x},${p5.y}")
+    // 일반적인 메소드 호출 방식으로 호출
+    var f3 = f1.add(f2)
+    //var f4 = f1.sub(f2)
+
+    println(f3.toDouble())
+    //println(f4)
 
 
 }

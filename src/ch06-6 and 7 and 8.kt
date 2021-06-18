@@ -1,52 +1,27 @@
-class Fraction(var n:Int, var d:Int){
-    fun toDouble() : Double {
-        return n.toDouble() / d
-    }
-
-    override fun toString(): String {
-        return "${n}/${d} + 1"
-    }
-
-    private fun lcm(a: Int, b: Int) : Int {
-        return (a * b) / gcd(a, b)
-    }
-
-    private fun gcd(a: Int, b: Int) : Int {
-        var gcd = 1
-        for(i in 2..kotlin.math.min(a, b)) {
-            if(a % i == 0 && b % i == 0) {
-                gcd = i
-            }
-        }
-        return gcd
-    }
-
-    fun add(f: Fraction) : Fraction {
-        if (this.d == f.d){
-            return Fraction(this.n + f.n, this.d)
-        }
-        else
-        {
-            var l = lcm(this.d,f.d)
-            return Fraction((this.n * (l / this.d)) + (f.n * (l / f.d)), l)
-        }
-    }
-
-
+interface Calculable {
+    fun calculate(x: Double, y: Double) : Double // 추상메서드
 }
 
+class Add : Calculable{ // 인터페이스를 구현하는 Add 클래스
+    override fun calculate(x: Double, y: Double): Double {
+        return x + y
+    }
+}
+class Subtract : Calculable{
+    override fun calculate(x: Double, y: Double): Double {
+        return x - y
+    }
+}
 
-fun main(){
-    val f1 = Fraction(3,4)
-    val f2 = Fraction(1,10)
-    println(f1.toDouble())
+fun doCalculation(c: Calculable, x: Double, y: Double) = c.calculate(x, y)
 
-    // 일반적인 메소드 호출 방식으로 호출
-    var f3 = f1.add(f2)
-    //var f4 = f1.sub(f2)
+fun main(args : Array<String>) {
+    var add = Add()
+    var sub = Subtract()
 
-    println(f3.toDouble())
-    //println(f4)
+    var res1 = doCalculation(add, 3.0, 4.0)
+    var res2 = doCalculation(sub, 10.0, 4.0)
 
-
+    println(res1)
+    println(res2)
 }
