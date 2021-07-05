@@ -10,19 +10,14 @@ fun main(args : Array<String>) {
     val day = today.dayOfMonth
 
     var diaryfile = File("diary_$year-$month-$day.txt")
-    diaryfile.createNewFile()
 
-    while(true){
-        print("> ")
-        val line = readLine() // 입력 값 받기
+    var lines : List<String> = diaryfile.readLines()
 
-        if (line == "/quit") break
-        if (line == "/clear"){
-            diaryfile.writeText("") // clear
-        }
-        else{
-            diaryfile.appendText("$line\n")
-            println("\"$line\" 입력 완료.")
-        }
+    println(lines)
+
+    for (l in lines) {
+        println(l)
     }
+
+
 }
