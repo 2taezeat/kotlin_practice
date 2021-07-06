@@ -4,7 +4,7 @@ class Fraction(var n:Int, var d:Int){
     }
 
     override fun toString(): String {
-        return "${n}/${d} + 1"
+        return "${n}/${d}"
     }
 
     private fun lcm(a: Int, b: Int) : Int {
@@ -21,7 +21,7 @@ class Fraction(var n:Int, var d:Int){
         return gcd
     }
 
-    fun add(f: Fraction) : Fraction {
+    infix fun add(f: Fraction) : Fraction {
         if (this.d == f.d){
             return Fraction(this.n + f.n, this.d)
         }
@@ -31,7 +31,9 @@ class Fraction(var n:Int, var d:Int){
             return Fraction((this.n * (l / this.d)) + (f.n * (l / f.d)), l)
         }
     }
-
+//    override fun toString(): String {
+//        return "${n}/${d}"
+//    }
 
 }
 
@@ -47,6 +49,6 @@ fun main(){
 
     println(f3.toDouble())
     //println(f4)
-
+    println(f1 add f2)
 
 }
